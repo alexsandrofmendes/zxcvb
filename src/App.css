@@ -1,9 +1,14 @@
-.App {
+.Pre {
   text-align: center;
   width: 100%;
   display: flex;
 }
 
+.Pedidos {
+  display: flex;
+  width: 100%;
+  text-align: center;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -60,22 +65,21 @@
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border-radius: 0;
   background: #fff;
 }
 
 .edit .small {
-  flex:1;
+  flex: 1;
 }
 
 .edit .medium {
-  flex:2;
+  flex: 2;
 }
 
-
-.edit .large{
+.edit .large {
   flex: 3;
 }
 
@@ -87,13 +91,18 @@
 .edit input:last-of-type {
   width: 100%;
 }
-.edit button {
+.edit button.main {
   width: 100%;
   border: 0;
 }
 
+.edit button.remove {
+  width: 8%;
+  padding: 1px;
+}
+
 .panel {
-  flex:1;
+  flex: 1;
   border: 1px solid #000000;
   margin: 5px;
   border-radius: 10px;
@@ -101,7 +110,7 @@
 }
 
 button,
-input[type=submit] {
+input[type="submit"] {
   text-transform: uppercase;
   background: none;
   border: 1px solid #000;
@@ -119,6 +128,10 @@ input[type=submit] {
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

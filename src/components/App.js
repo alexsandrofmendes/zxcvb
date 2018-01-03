@@ -1,59 +1,70 @@
-import React, { Component } from 'react';
-import '../App.css';
-import base from '../base';
-import Firebase from 'firebase';
-import Setores from './Setores';
-import Maquinas from './Maquinas';
-import Produtos from './Produtos';
+import React, { Component } from "react";
+import "../App.css";
+import base from "../base";
+import Firebase from "firebase";
+import Setores from "./Setores";
+import Maquinas from "./Maquinas";
+import Produtos from "./Produtos";
+import Pedidos from "./Pedidos";
 
 class App extends Component {
   constructor() {
     super();
     this.addSetor = this.addSetor.bind(this);
     this.updateSetor = this.updateSetor.bind(this);
+    this.removeSetor = this.removeSetor.bind(this);
     this.addMaquina = this.addMaquina.bind(this);
     this.updateMaquina = this.updateMaquina.bind(this);
+    this.removeMaquina = this.removeMaquina.bind(this);
     this.addProduto = this.addProduto.bind(this);
     this.updateProduto = this.updateProduto.bind(this);
+    this.addPedido = this.addPedido.bind(this);
+    this.updatePedido = this.updatePedido.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
     this.autenticar = this.autenticar.bind(this);
     this.state = {
       setores: [],
       maquinas: [],
       produtos: [],
+      pedidos: [],
       owners: [],
       githubMail: null
-    }
+    };
   }
 
   componentWillMount() {
-    this.refSetores = base.syncState('setores',{
+    this.refSetores = base.syncState("setores", {
       context: this,
-      state: 'setores'
+      state: "setores"
     });
-    this.refMaquinas = base.syncState('maquinas',{
+    this.refMaquinas = base.syncState("maquinas", {
       context: this,
-      state: 'maquinas'
+      state: "maquinas"
     });
-    this.refProdutos = base.syncState('produtos',{
+    this.refProdutos = base.syncState("produtos", {
       context: this,
-      state: 'produtos'
+      state: "produtos"
     });
-    this.refOwners = base.syncState('owners',{
+    this.refPedidos = base.syncState("pedidos", {
       context: this,
-      state: 'owners'
+      state: "pedidos"
+    });
+    this.refOwners = base.syncState("owners", {
+      context: this,
+      state: "owners"
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     base.removeBinding(this.refSetores);
     base.removeBinding(this.refMaquinas);
     base.removeBinding(this.refProdutos);
-
+    base.removeBinding(this.refPedidos);
+    base.removeBinding(this.refOwners);
   }
 
-  addSetor(setor){
-    const setores = {...this.state.setores};
+  addSetor(setor) {
+    const setores = { ...this.state.setores };
     const timestamp = Date.now();
 
     setores[`setor-${timestamp}`] = setor;
@@ -63,16 +74,24 @@ class App extends Component {
     });
   }
 
-  updateSetor(key, setor){
-    const setores = {...this.state.setores};
+  updateSetor(key, setor) {
+    const setores = { ...this.state.setores };
     setores[key] = setor;
     this.setState({
       setores
     });
   }
 
-  addMaquina(maquina){
-    const maquinas = {...this.state.maquinas};
+  removeSetor(key) {
+    const setores = { ...this.state.setores };
+    setores[key] = null;
+    this.setState({
+      setores
+    });
+  }
+
+  addMaquina(maquina) {
+    const maquinas = { ...this.state.maquinas };
     const timestamp = Date.now();
 
     maquinas[`maquina-${timestamp}`] = maquina;
@@ -82,16 +101,24 @@ class App extends Component {
     });
   }
 
-  updateMaquina(key, maquina){
-    const maquinas = {...this.state.maquinas};
+  updateMaquina(key, maquina) {
+    const maquinas = { ...this.state.maquinas };
     maquinas[key] = maquina;
     this.setState({
       maquinas
     });
   }
 
-  addProduto(produto){
-    const produtos = {...this.state.produtos};
+  removeMaquina(key) {
+    const maquinas = { ...this.state.maquinas };
+    maquinas[key] = null;
+    this.setState({
+      maquinas
+    });
+  }
+
+  addProduto(produto) {
+    const produtos = { ...this.state.produtos };
     const timestamp = Date.now();
 
     produtos[`produto-${timestamp}`] = produto;
@@ -102,64 +129,101 @@ class App extends Component {
   }
 
   updateProduto(key, produto) {
-    const produtos = {...this.state.produtos};
+    const produtos = { ...this.state.produtos };
     produtos[key] = produto;
     this.setState({
       produtos
     });
   }
 
+  addPedido(pedido) {
+    const pedidos = { ...this.state.pedidos };
+    const timestamp = Date.now();
+
+    pedidos[`pedido-${timestamp}`] = pedido;
+
+    this.setState({
+      pedidos
+    });
+  }
+
+  updatePedido(key, pedido) {
+    const pedidos = { ...this.state.pedidos };
+    pedidos[key] = pedido;
+    this.setState({
+      pedidos
+    });
+  }
+
   renderLogin() {
-    return(
+    return (
       <nav className="login">
         <p>Autentique-se utilizando o Github</p>
-        <button onClick={(e) => this.autenticar()}>Autenticar com Github</button>
+        <button onClick={e => this.autenticar()}>Autenticar com Github</button>
       </nav>
-    )
+    );
   }
 
   autenticar() {
     var provider = new Firebase.auth.GithubAuthProvider();
-    Firebase.auth().signInWithPopup(provider).then((result) => {
-      var token = result.credential.accessToken;
-      var user = result.user;
+    Firebase.auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        var token = result.credential.accessToken;
+        var user = result.user;
 
-      this.setState({
-        githubMail: user.email
+        this.setState({
+          githubMail: user.email
+        });
+
+        console.log(token);
+        console.log(user.email);
       })
-
-      console.log(token);
-      console.log(user.email);
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-      console.log(error);
-    });
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        console.log(error);
+      });
   }
-  
+
   render() {
-    if(!this.state.githubMail || !Object.values(this.state.owners).some(item => item === this.state.githubMail)){
-      return (<div>{this.renderLogin()}</div>)
-    }
+    // if(!this.state.githubMail || !Object.values(this.state.owners).some(item => item === this.state.githubMail)){
+    //   return (<div>{this.renderLogin()}</div>)
+    // }
 
     return (
-      <div className="App">
-        <Setores 
-          setores={this.state.setores}
-          updateSetor={this.updateSetor}
-          addSetor={this.addSetor}/>
-        <Maquinas 
-          maquinas={this.state.maquinas}
-          addMaquina={this.addMaquina}
-          updateMaquina={this.updateMaquina}
-          setores={this.state.setores}/>
-        <Produtos
-          updateProduto={this.updateProduto}
-          produtos={this.state.produtos}
-          addProduto={this.addProduto}
-          maquinas={this.state.maquinas}/>
+      <div>
+        <div className="Pre">
+          <Setores
+            setores={this.state.setores}
+            updateSetor={this.updateSetor}
+            addSetor={this.addSetor}
+            removeSetor={this.removeSetor}
+          />
+          <Maquinas
+            maquinas={this.state.maquinas}
+            addMaquina={this.addMaquina}
+            updateMaquina={this.updateMaquina}
+            removeMaquina={this.removeMaquina}
+            setores={this.state.setores}
+          />
+          <Produtos
+            updateProduto={this.updateProduto}
+            produtos={this.state.produtos}
+            addProduto={this.addProduto}
+            maquinas={this.state.maquinas}
+          />
+        </div>
+        <div className="Pedidos">
+          <Pedidos
+            produtos={this.state.produtos}
+            pedidos={this.state.pedidos}
+            addPedido={this.addPedido}
+            updatePedido={this.updatePedido}
+          />
+        </div>
       </div>
     );
   }
