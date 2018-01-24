@@ -1,0 +1,14 @@
+.OrderArea {
+  border: 1px solid #cdcdcd;
+  margin-top: 10px;
+}
+
+.OrderAreaList {
+  list-style: none;
+  padding: 5px;
+}
+
+.OrderAreaListItem {
+  border: 1px solid #cccccc;
+  margin-top: 5px;
+}
