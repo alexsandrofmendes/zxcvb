@@ -58,6 +58,7 @@ class Pedidos extends React.Component {
           value={pedido.quantidade}
         />
       </div>
+    
     );
   }
 
@@ -68,8 +69,9 @@ class Pedidos extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Pedidos</h1>
         </header>
+        
         {Object.keys(this.props.pedidos).map(this.renderPedidos)}
-
+        
         <FormAddPedido
           addPedido={this.props.addPedido}
           produtos={this.props.produtos}

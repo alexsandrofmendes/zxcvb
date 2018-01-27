@@ -1,3 +1,17 @@
+body {
+    font-family: Lato;
+    background: #fafafa;
+}
+
+.medium, .large, .small {
+    font-family: Lato;
+}
+
+button {
+    cursor: pointer;
+    color: #696969;
+}
+
 .Pre {
   text-align: center;
   width: 100%;
@@ -7,20 +21,21 @@
 .Pedidos {
   display: flex;
   width: 100%;
-  text-align: center;
+  
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 60px;
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #f1f1f2;
+  border-bottom: 1px solid #bbb;
   border-radius: 10px 10px 0 0;
-  height: 150px;
+  height: 120px;
   padding: 20px;
-  color: white;
+  color: #696969;
 }
 
 .App-title {
@@ -33,7 +48,7 @@
 
 .maquinas {
   margin: 2px;
-  border: 1px dashed #000;
+  border: 1px solid #bbb;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -46,8 +61,8 @@
 }
 
 .edit {
-  margin: 5px;
-  border: 2px solid #000;
+  margin: 8px;
+  border: 1px solid #bbb;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -62,8 +77,8 @@
   line-height: 1;
   font-size: 0.8rem;
   border: 0;
-  border-bottom: 1px solid #000;
-  border-right: 1px solid #000;
+  border-bottom: 0px solid #bbb;
+  border-right: 1px solid #bbb;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -93,27 +108,29 @@
 }
 .edit button.main {
   width: 100%;
-  border: 0;
+  border: 1;
+    
 }
 
 .edit button.remove {
   width: 8%;
   padding: 1px;
+  border: #bbb;
 }
 
 .panel {
   flex: 1;
-  border: 1px solid #000000;
+  border: 1px solid #bbb;
   margin: 5px;
   border-radius: 10px;
-  box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 11px rgba(0, 0, 0, 0.3);
 }
 
 button,
 input[type="submit"] {
   text-transform: uppercase;
-  background: none;
-  border: 1px solid #000;
+  background: #f1f1f2;
+  border: 1px solid #bbb;
   font-weight: 600;
   font-size: 1.5rem;
   -webkit-transition: all 0.2s;
@@ -125,6 +142,17 @@ input[type="submit"] {
 
 .panel {
   margin: 5px;
+}
+
+.react-calendar-timeline .rct-outer {
+    display: block;
+    overflow: hidden; 
+    white-space: nowrap;
+    margin-top: 37px;
+}
+
+.react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-even {
+    background: white;
 }
 
 @keyframes App-logo-spin {

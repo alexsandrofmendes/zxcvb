@@ -1,19 +1,39 @@
 .Toolbar {
-  height: 56px;
+  height: 57px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #703b09;
+  background-color: #f1f1f2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 90;
+  border-bottom: 1px solid #bbb;
+}
+
+.Toolbar div{
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #696969;
+  font-weight: 600;
+  font-size: 1.5rem;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  position: relative;
+  z-index: 2;
+}
+
+.Toolbar nav button{
+    font-family: lato;
+    border: none;
+    margin-right: 10px;
+    padding-right: 10px;
 }
 
 .Toolbar nav {
-  height: 100%;
-  display: inline-flex
+  height: 90%;
+  display: inline-flex;
 }
